@@ -1,0 +1,73 @@
+# PokeParser
+
+Drop PokeNexus screenshots in. Get a spreadsheet out.
+
+Automatically reads Pokemon name, level, shiny status, nature, ability, catcher,
+and all IVs and EVs using OCR. Highlights perfect IVs (30–31) in green and flags
+Smogon-recommended natures for the species.
+
+![Output example showing green IV cells and nature highlighting]
+
+---
+
+## Download
+
+**→ [Latest Release](../../releases/latest)**
+
+Pick the zip for your platform (Windows / Mac / Linux), unzip, and run.
+The only dependency is [Tesseract OCR](https://github.com/UB-Mannheim/tesseract/wiki) —
+see [INSTALL.md](INSTALL.md) for the full setup guide.
+
+---
+
+## What it reads
+
+| Field | Source |
+|---|---|
+| Pokemon, Level, Shiny | In-game label (`Lv 25 [S]Gengar`) |
+| Pokédex, Type, Nature, Happiness | Right panel |
+| Ability, Catcher | Right panel |
+| HP, Atk, Def, Spec Atk, Spec Def, Speed | All with IV and EV |
+
+Output: `PokeParser-YYYY-MM-DD_HHMMSS.xlsx`
+
+---
+
+## Output
+
+- **IV columns** — green when 30 or 31
+- **Nature column** — green when Smogon (USUM Gen 7) recommends it for that species
+- **Parse Errors column** — flags anything the OCR couldn't read cleanly
+- Optional direct upload to Google Drive
+
+---
+
+## Accuracy
+
+~97.7% across tested screenshots. The main exception is level detection on
+screenshots with busy animated backgrounds — all other fields still parse correctly.
+
+---
+
+## Building from source
+
+```
+# Windows
+install_windows.bat
+
+# macOS
+bash install_mac.sh
+
+# Linux
+bash install_linux.sh
+```
+
+Requires Python 3.10+ and Tesseract. See [INSTALL.md](INSTALL.md).
+
+---
+
+## Specialty forms
+
+Pokemon with `-Halloween` or `-Christmas` suffixes are included in the output
+as-is, but looked up under their base species on Smogon (since those forms
+don't exist in competitive data).
